@@ -36,25 +36,37 @@ page = st.sidebar.selectbox("Choose a page", ('Home', 'Tumor Detection', 'Tumor 
 
 
 if page == 'Home':
-    col1, col2 = st.columns([1, 2])
+       
+    image = Image.open("brain.png")  
+    resized = image.resize((300, 300))
+
+    col1, col2 = st.columns([1, 2]) 
+
     with col1:
-        st.image(Image.open("brain.png").resize((350, 350)))
+        st.image(resized)
+
     with col2:
         st.markdown("<h1 style='margin-top: 50px;'>Brain Tumor Detection and Segmentation</h1>", unsafe_allow_html=True)
 
     st.markdown("""
-    ### 🧠 About Brain Tumors
-    Brain tumors are abnormal growths of cells in the brain that can be life-threatening if not detected early.
+    ###  About Brain Tumors
+
+    Brain tumors are abnormal growths of cells in the brain that can be life-threatening if not detected early. MRI scans are commonly used to visualize these tumors.
 
     ### 🤖 Project Overview
-    This project uses **deep learning models**:
-    - 🟦 **ResNet** for classification (tumor vs no tumor)
-    - 🟥 **U-Net** for segmentation (highlighting tumor regions)
 
-    MRI scans are uploaded and analyzed by the system.
+    In this project, the used **pretrained deep learning models**:
+    - 🟦 **ResNet** for tumor classification (detecting if there's a tumor or not)
+    - 🟥 **U-Net** for tumor segmentation (highlighting tumor regions in MRI scans)
+
+    Using AI, the system can analyze **brain MRI scans** and predict whether a tumor is present, helping in faster and more accurate diagnosis.
     """)
-    st.image(Image.open('image.png').resize((800, 300)))
-    st.image(Image.open('image2.jpg').resize((800, 300)))
+    image2 = Image.open('image.png')
+    
+    st.image(image2.resize((800,300)))
+    image3 = Image.open('image2.jpg')
+    st.image(image3.resize((800,300)))
+
 
 
 elif page == 'Tumor Detection':
@@ -75,8 +87,8 @@ elif page == 'Tumor Detection':
             model = tf.keras.models.load_model('models/Brain_Tumor_Detection.h5')
             prediction = model.predict(img_array)[0][0]
 
-            result = "🧠 Tumor Detected" if prediction > 0.5 else "🎉 No Tumor Detected"
-            st.success(f"Prediction: {result} (Confidence: {prediction:.2f})")
+            result = "Tumor Detected" if prediction > 0.5 else "🎉Congratulations! No Tumor Detected"
+            st.success(f"{result}")
 
 
 elif page == 'Tumor Segmentation':
@@ -108,7 +120,3 @@ elif page == 'Tumor Segmentation':
         with col2:
             st.markdown("### 🎯 Tumor Mask")
             st.image(mask_img, use_container_width=True)
-
-        st.markdown("### 📊 Analysis")
-        st.write(f"Tumor pixel count: `{tumor_pixels}`")
-        st.write(f"Prediction value range: min={np.min(pred_mask)}, max={np.max(pred_mask)}")

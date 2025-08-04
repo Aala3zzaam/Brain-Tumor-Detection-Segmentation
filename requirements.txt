@@ -1,0 +1,11 @@
+python==3.9
+numpy
+pandas
+seaborn
+matplotlib
+scikit-learn
+opencv-python
+pillow
+tensorflow==2.11.0
+keras==2.11.0
+keras-unet

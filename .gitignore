@@ -1,0 +1,15 @@
+# Ignore virtual environments
+venv/
+ENV/
+env/
+
+# Ignore cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.ipynb_checkpoints/
+
+# Ignore model files (we'll download them)
+*.h5
+*.hdf5
